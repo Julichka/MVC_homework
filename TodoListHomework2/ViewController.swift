@@ -7,6 +7,20 @@
 
 import UIKit
 
+class Cell: UITableViewCell {
+    
+    @IBOutlet weak var name: UILabel!
+    
+    
+    @IBOutlet weak var delete: UIButton!
+    
+    @IBOutlet weak var edit: UIButton!
+    
+    
+    @IBOutlet weak var check: UIButton!
+    
+}
+
 class ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var table: UITableView!
@@ -82,10 +96,10 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
             
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = table.dequeueReusableCell(withIdentifier: "TableViewCell",
-                                                 for: indexPath)
-        cell.textLabel?.text = self.model.todos[indexPath.row].name
+        let cell = table.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! Cell
+        
+        cell.name?.text = self.model.todos[indexPath.row].name
         return cell
+    
     }
 }
-
