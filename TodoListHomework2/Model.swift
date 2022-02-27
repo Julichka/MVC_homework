@@ -32,7 +32,11 @@ class Model {
         todos.remove(at: index)
     }
     
-    func sort() {
-        todos = todos.sorted { $0.name < $1.name }
+    func sort(azSort: Bool) {
+        if (azSort) {
+            todos = todos.sorted { $0.name < $1.name }
+        } else {
+            todos = todos.sorted { $0.name > $1.name }
+        }
     }
 }

@@ -18,6 +18,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     var model: Model = Model()
     
+    var azSort: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         table.register(UITableViewCell.self,
@@ -41,7 +43,7 @@ class ViewController: UIViewController, UITableViewDataSource {
             }
             
             self.model.addItem(name: unwrTextFieldValue)
-            self.model.sort()
+            self.model.sort(azSort: self.azSort)
             self.table.reloadData()
             
             
@@ -71,6 +73,9 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     @IBAction func onSort(_ sender: Any) {
+        self.azSort = !self.azSort
+        model.sort(azSort: self.azSort)
+        self.table.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
