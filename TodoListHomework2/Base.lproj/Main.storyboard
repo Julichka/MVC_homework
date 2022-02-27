@@ -49,7 +49,7 @@
                                                         </attributedString>
                                                     </state>
                                                     <connections>
-                                                        <action selector="onDelete:" destination="yrw-Pa-Ya9" eventType="touchUpInside" id="Odj-m0-fYm"/>
+                                                        <action selector="onDelete:" destination="yrw-Pa-Ya9" eventType="touchUpInside" id="glb-nw-SE9"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZsM-VW-90z">
@@ -65,9 +65,6 @@
                                                             </fragment>
                                                         </attributedString>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="onEdit:" destination="yrw-Pa-Ya9" eventType="touchUpInside" id="0uT-Hx-0Fv"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="euz-nU-NAI">
                                                     <rect key="frame" x="345" y="13" width="19" height="17"/>
@@ -86,10 +83,10 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="check" destination="euz-nU-NAI" id="K0h-jq-FgZ"/>
-                                            <outlet property="delete" destination="7Mu-Rj-GX7" id="yZg-LB-Mnc"/>
-                                            <outlet property="edit" destination="ZsM-VW-90z" id="Se5-gV-gun"/>
-                                            <outlet property="name" destination="VJV-m3-Hw1" id="sPn-GJ-MoG"/>
+                                            <outlet property="check" destination="euz-nU-NAI" id="Spa-Kh-2vv"/>
+                                            <outlet property="delete" destination="7Mu-Rj-GX7" id="7ll-5U-BLZ"/>
+                                            <outlet property="edit" destination="ZsM-VW-90z" id="UJF-vB-tzP"/>
+                                            <outlet property="name" destination="VJV-m3-Hw1" id="HKK-w2-wBv"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

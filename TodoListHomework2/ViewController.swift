@@ -9,6 +9,8 @@ import UIKit
 
 class Cell: UITableViewCell {
     
+    var delegate: CellDelegate?
+    
     @IBOutlet weak var name: UILabel!
     
     
@@ -19,6 +21,15 @@ class Cell: UITableViewCell {
     
     @IBOutlet weak var check: UIButton!
     
+    @IBAction func onDelete(_ sender: Any) {
+        delegate?.deleteCell(cell: self)
+    }
+    
+}
+
+protocol CellDelegate {
+    func editCell(cell: Cell)
+    func deleteCell(cell: Cell)
 }
 
 class ViewController: UIViewController, UITableViewDataSource {
@@ -94,12 +105,45 @@ class ViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.todos.count
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.model.todos[indexPath.row].checked = !self.model.todos[indexPath.row].checked
+        self.table.reloadData()
+    }
             
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! Cell
         
+        cell.delegate = self
+        
         cell.name?.text = self.model.todos[indexPath.row].name
+        cell.check?.isHidden = !self.model.todos[indexPath.row].checked
         return cell
     
     }
+}
+
+extension ViewController: CellDelegate {
+    
+    // MARK: - Cell Protocol Stubs
+    
+    
+    func editCell(cell: Cell) {
+        
+        
+        
+    }
+    
+    func deleteCell(cell: Cell) {
+        
+        let indexPath = table.indexPath(for: cell)
+        
+        guard let unwrIndexPath = indexPath else {
+            return
+        }
+        
+        model.removeItem(at: unwrIndexPath.row)
+        table.reloadData()
+    }
+
 }
