@@ -25,6 +25,9 @@ class Cell: UITableViewCell {
         delegate?.deleteCell(cell: self)
     }
     
+    @IBAction func onEdit(_ sender: Any) {
+        delegate?.editCell(cell: self)
+    }
 }
 
 protocol CellDelegate {
@@ -121,6 +124,42 @@ class ViewController: UIViewController, UITableViewDataSource {
         return cell
     
     }
+    
+    func editCellContent(indexPath: IndexPath) {
+
+        let cell = tableView(table, cellForRowAt: indexPath) as! Cell
+        
+        dialog = UIAlertController(title: "Edit your task", message: nil, preferredStyle: .alert)
+
+        dialog.addTextField(configurationHandler: { (textField) -> Void in
+            textField.addTarget(self, action: #selector(self.textChangeListener(_:)), for: .editingChanged)
+            textField.text = cell.name.text
+            
+        })
+        
+        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        let editAlertAction = UIAlertAction(title: "Submit", style: .default) { (createAlert) in
+            
+            guard let textFields = self.dialog.textFields, textFields.count > 0 else{
+                return
+            }
+            
+            guard let textValue = self.dialog.textFields?[0].text else {
+                return
+            }
+            
+            self.model.update(at: indexPath.row, with: textValue)
+            
+            self.table.reloadData()
+
+        }
+        
+        dialog.addAction(cancelAlertAction)
+        dialog.addAction(editAlertAction)
+        present(dialog, animated: true, completion: nil)
+        
+    }
 }
 
 extension ViewController: CellDelegate {
@@ -130,7 +169,13 @@ extension ViewController: CellDelegate {
     
     func editCell(cell: Cell) {
         
+        let indexPath = table.indexPath(for: cell)
         
+        guard let unwrIndexPath = indexPath else {
+            return
+        }
+        
+        self.editCellContent(indexPath: unwrIndexPath)
         
     }
     

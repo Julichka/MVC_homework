@@ -32,6 +32,10 @@ class Model {
         todos.remove(at: index)
     }
     
+    func update(at index: Int, with name: String) {
+        todos[index].name = name
+    }
+    
     func sort(azSort: Bool) {
         if (azSort) {
             todos = todos.sorted { $0.name < $1.name }

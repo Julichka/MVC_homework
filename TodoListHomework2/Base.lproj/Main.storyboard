@@ -65,6 +65,9 @@
                                                             </fragment>
                                                         </attributedString>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="onEdit:" destination="yrw-Pa-Ya9" eventType="touchUpInside" id="rAh-kt-gCm"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="euz-nU-NAI">
                                                     <rect key="frame" x="345" y="13" width="19" height="17"/>
@@ -104,7 +107,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
-                                    <action selector="onEdit:" destination="vyZ-ne-o9j" eventType="touchUpInside" id="uDA-TP-c7F"/>
+                                    <action selector="onEdit:" destination="vyZ-ne-o9j" eventType="touchUpInside" id="4qj-FY-Ydn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fz4-c1-956">
