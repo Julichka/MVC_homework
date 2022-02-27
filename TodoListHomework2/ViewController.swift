@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var edit: UIButton!
     @IBOutlet weak var sort: UIButton!
     
-    var alert = UIAlertController()
+    var dialog = UIAlertController()
     
     var model: Model = Model()
     
@@ -22,23 +22,22 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        table.register(UITableViewCell.self,
-                               forCellReuseIdentifier: "TableViewCell")
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
         table.dataSource = self
     }
     
     @IBAction func onAddClicked(_ sender: Any) {
-        alert = UIAlertController(title: "Create new task", message: nil, preferredStyle: .alert)
+        dialog = UIAlertController(title: "Create new task", message: nil, preferredStyle: .alert)
         
-        alert.addTextField { (textField: UITextField) in
-            textField.placeholder = "Put your task here"
-            textField.addTarget(self, action: #selector(self.alertTextFieldDidChange(_:)), for: .editingChanged)
+        dialog.addTextField { (textField: UITextField) in
+            textField.placeholder = "Task name"
+            textField.addTarget(self, action: #selector(self.textChangeListener(_:)), for: .editingChanged)
         }
         
-        let createAlertAction = UIAlertAction(title: "Create", style: .default) { (createAlert) in
+        let addAction = UIAlertAction(title: "Add", style: .default) { (createAlert) in
             // add new task
             
-            guard let unwrTextFieldValue = self.alert.textFields?[0].text else {
+            guard let unwrTextFieldValue = self.dialog.textFields?[0].text else {
                 return
             }
             
@@ -49,21 +48,21 @@ class ViewController: UIViewController, UITableViewDataSource {
             
         }
         
-        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let closeAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
 
-        alert.addAction(cancelAlertAction)
-        alert.addAction(createAlertAction)
-        present(alert, animated: true, completion: nil)
-        createAlertAction.isEnabled = false
+        dialog.addAction(closeAction)
+        dialog.addAction(addAction)
+        present(dialog, animated: true, completion: nil)
+        addAction.isEnabled = false
     }
     
-    @objc func alertTextFieldDidChange(_ sender: UITextField) {
+    @objc func textChangeListener(_ sender: UITextField) {
 
-            guard let senderText = sender.text, alert.actions.indices.contains(1) else {
+            guard let senderText = sender.text, dialog.actions.indices.contains(1) else {
                 return
             }
 
-            let action = alert.actions[1]
+            let action = dialog.actions[1]
             action.isEnabled = senderText.count > 0
         }
     
