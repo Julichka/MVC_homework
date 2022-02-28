@@ -35,7 +35,7 @@ protocol CellDelegate {
     func deleteCell(cell: Cell)
 }
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var add: UIButton!
@@ -52,6 +52,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
         table.dataSource = self
+        table.delegate = self
     }
     
     @IBAction func onAddClicked(_ sender: Any) {
@@ -108,11 +109,6 @@ class ViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.todos.count
     }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.model.todos[indexPath.row].checked = !self.model.todos[indexPath.row].checked
-        self.table.reloadData()
-    }
             
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! Cell
@@ -125,8 +121,20 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = tableView.indexPathForSelectedRow?.row ?? 0
+        
+        self.model.todos[index].checked = !self.model.todos[index].checked
+        self.table.reloadData()
+        print("selected \(self.model.todos[index].checked)")
+    }
+    
     func editCellContent(indexPath: IndexPath) {
-
+        print("edit \(self.model.todos[indexPath.row].name)")
         let cell = tableView(table, cellForRowAt: indexPath) as! Cell
         
         dialog = UIAlertController(title: "Edit your task", message: nil, preferredStyle: .alert)
